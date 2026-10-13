@@ -1,0 +1,8 @@
+# 以下内容只保留在本地，网站运行不需要它们，上传会拖垮仓库
+index.standalone.html
+AMCC6500H/
+.workbuddy/
+
+# 系统垃圾文件
+.DS_Store
+Thumbs.db
