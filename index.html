@@ -1,13 +1,56 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-page-node-id="fYg6pbc9d5xUeINdVC7tX0" data-dm-ref="1"><head data-page-node-id="XBtHJVIfkbL3CjFaprFxGI">
+<html lang="en" data-page-node-id="fYg6pbc9d5xUeINdVC7tX0" data-dm-ref="1"><head data-page-node-id="XBtHJVIfkbL3CjFaprFxGI">
 <meta charset="UTF-8" data-page-node-id="YDXyjmAE7USnkJ81Pf3FA0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="v5LlGYo9Y0muVTEzealt3s">
 <title>Itzel Tang — Visual Designer</title>
 <meta name="description" content="Itzel Tang — Visual Designer. Trained in stage design, now building bridges between brand and feeling, with AI as the loom." data-page-node-id="DvO7FwiRUSL6Teo7QtRjAV">
 <link rel="preconnect" href="https://fonts.googleapis.com" data-page-node-id="vOtW3h5qArA6lKZbfVU5VH">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" data-page-node-id="7zu2reazaPs2oe4tBUwm95">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet" data-page-node-id="TlDkgCLW0ZVyrh7f7764Ds">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet" data-page-node-id="TlDkgCLW0ZVyrh7f7764Ds">
 <style>
+/* ============================================================
+   WEBFONT — Satoshi（全站标题 / 大字）
+   来自 Fontshare（Indian Type Foundry，免费商用），本地自托管，不上 CDN。
+   4 档独立字重文件（每个约 25KB）：300 Light / 400 Regular / 500 Medium / 700 Bold。
+   Satoshi 是完整拉丁字库（431 字形，含全部标点与重音），无需再补字形。
+   ============================================================ */
+@font-face {
+  font-family: "Satoshi";
+  src: url("assets/fonts/satoshi-300.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("assets/fonts/satoshi-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("assets/fonts/satoshi-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("assets/fonts/satoshi-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+/* Inter：仅作文本字重的本地兜底（正文主体走 Google Fonts 的 Inter 变量字体） */
+@font-face {
+  font-family: "Inter Fallback";
+  src: url("assets/fonts/inter-latin.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ============================================================
    DESIGN TOKENS — 冷白晨雾 · White × Baby Blue
     palette: 大面积纯白 / 深灰 #2b2f33 / 浅灰 #9aa4ae
@@ -20,16 +63,19 @@
   --panel:         #ffffff;
   --ink:           #2b2f33;   /* 深灰 */
   --ink-soft:      #5f6b76;
-  --ink-faint:     #9aa4ae;   /* 浅灰 */
+  --ink-faint:     #68737e;   /* 浅灰：加深至 4.5:1 以上，保证小字辅助文案可读（WCAG AA） */
   --line:          rgba(43,47,51,.10);
   --baby:          #d8eaff;   /* Baby Blue 点缀 */
-  --azure:         #5b93d1;   /* 文字强调（深一档保证对比度） */
-  --accent:        var(--azure);
+  --azure:         #5b93d1;   /* 强调蓝：只用于 96px 级大标题与描边/下划线等图形 */
+  --azure-deep:    #35669e;   /* 强调蓝·深档：所有小字与浅蓝底上的文字用这档（白底 5.92:1 / baby 底 4.83:1，均过 AA） */
+  --accent:        var(--azure-deep);
   --accent-soft:   rgba(216,234,255,.55);
 
-  /* Type */
-  --display: "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; /* 思源黑体 · 中文标题字 */
-  --sans:    "Inter", "Noto Sans SC", "PingFang SC", -apple-system, sans-serif;
+  /* Type
+     Satoshi = 全站标题与大字（大标题 400 / 作品与区块标题 500）
+     Inter   = 全部正文、描述、奖项列表、邮箱（400，次要小字 300） */
+  --display: "Satoshi", "Inter", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --sans:    "Inter", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
 
   /* Rhythm — 收窄布局：两侧留白加宽 */
   --gutter: clamp(36px, 8vw, 140px);
@@ -42,7 +88,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--sans);
-  font-weight: 300;
+  font-weight: 400;   /* 规范：全部正文 / 描述 / 奖项列表 / 邮箱用 Inter 400，次要小字才用 300 */
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -75,11 +121,11 @@ img { display: block; max-width: 100%; }
 }
 .nav-logo {
   font-family: var(--display);
-  font-weight: 600;
-  font-size: 17px;
-  letter-spacing: .12em;
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: -.01em;
 }
-.nav-logo span { color: var(--ink-faint); font-weight: 300; }
+.nav-logo span { color: var(--ink-faint); }
 .nav-links { display: flex; gap: clamp(20px, 4vw, 48px); }
 .nav-links a {
   font-size: 12px;
@@ -94,12 +140,12 @@ img { display: block; max-width: 100%; }
   content: "";
   position: absolute; left: 0; bottom: 0;
   width: 100%; height: 1px;
-  background: var(--azure);
+  background: var(--azure-deep);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform .45s cubic-bezier(.77,0,.18,1);
 }
-.nav-links a:hover { color: var(--azure); }
+.nav-links a:hover { color: var(--azure-deep); }
 .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
 
 /* ============================================================
@@ -142,21 +188,20 @@ img { display: block; max-width: 100%; }
 }
 .hero-title {
   font-family: var(--display);
-  font-weight: 600;
-  font-size: clamp(44px, 7.6vw, 118px);
-  line-height: 1.16;
-  letter-spacing: .04em;
+  font-weight: 400;
+  font-size: clamp(38px, 6.4vw, 100px);
+  line-height: 1.1;
+  letter-spacing: -.02em;
   color: var(--ink);
 }
 .hero-title em { font-style: normal; color: var(--azure); }
-/* 中文主标题已移除：英文长句升为唯一 Hero 主标题，按拉丁文重构字号/字距
-   （.hero-title-en 保留为死样式，便于将来切回中英双语结构） */
+/* 主标题：Satoshi 400 / 字距 -0.025em / 行高 1.1（按规范值） */
 .hero-title.is-en {
-  font-family: var(--sans);
-  font-weight: 500;
-  font-size: clamp(30px, 5.2vw, 78px);
-  line-height: 1.16;
-  letter-spacing: -.02em;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(36px, 6vw, 96px);
+  line-height: 1.1;
+  letter-spacing: -.025em;
   text-wrap: balance;   /* 桌面由 <br> 固定两行；窄屏折行时自动均衡 */
 }
 .hero-title-en {
@@ -220,29 +265,40 @@ img { display: block; max-width: 100%; }
   font-size: 11px;
   letter-spacing: .3em;
   text-transform: uppercase;
-  color: var(--azure);
+  color: var(--azure-deep);
   margin-bottom: 18px;
   display: flex;
   align-items: center;
   gap: 12px;
 }
-.section-kicker::before { content: ""; width: 28px; height: 1px; background: var(--azure); }
+/* 三角标记：带圆角的等边三角形（向右），替代原先的短横杠。
+   用内联 SVG 而非 ::before 画，是为了 html.to.design 导入 Figma 时能拿到可编辑矢量。
+   currentColor 让它自动跟随小标题文字色（baby blue 底上为深档蓝）。 */
+.kicker-mark {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 2.4;      /* 半径 = stroke-width/2，即 1.2px 的圆角 */
+  stroke-linejoin: round;
+}
 .section-title {
   font-family: var(--display);
-  font-weight: 600;
-  font-size: clamp(30px, 4.6vw, 64px);
-  line-height: 1.25;
-  letter-spacing: .03em;
-}
-/* 英文长句标题：按拉丁文重设字号/字距，避免中文大字规格把句子撑成三行 */
-.section-title.is-en {
-  font-family: var(--sans);
   font-weight: 500;
-  font-size: clamp(23px, 3.1vw, 44px);
+  font-size: clamp(34px, 4.6vw, 62px);
   line-height: 1.2;
-  letter-spacing: -.015em;
+  letter-spacing: -.02em;
+}
+/* 区块标题：Satoshi 500；长句在 500 字重下更紧凑，字号随之上调一档 */
+.section-title.is-en {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(28px, 3.35vw, 48px);
+  line-height: 1.2;
+  letter-spacing: -.022em;
   text-wrap: balance;
-  max-width: 20em;
+  max-width: none;
 }
 .section-title-en {
   margin-top: 10px;
@@ -355,29 +411,28 @@ img { display: block; max-width: 100%; }
   color: rgba(184,220,255,.85);
   margin-bottom: 14px;
 }
-.work-title-zh {
+.work-title {
   font-family: var(--display);
-  font-weight: 600;
-  font-size: clamp(24px, 2.6vw, 40px);
-  letter-spacing: .1em;
-  line-height: 1.2;
+  font-weight: 500;
+  font-size: clamp(28px, 3.1vw, 46px);
+  letter-spacing: -.022em;
+  line-height: 1.15;
   color: #ffffff;
 }
 .work-title-en {
-  font-size: 13px;
-  letter-spacing: .14em;
+  font-size: 10px;
+  letter-spacing: .26em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.78);
-  margin-top: 6px;
+  color: rgba(184,220,255,.72);
+  margin-top: 8px;
 }
 .work-desc {
   margin-top: 16px;
   font-size: 13px;
   color: rgba(255,255,255,.88);
-  max-width: 340px;
+  max-width: 380px;
   line-height: 1.8;
 }
-.work-desc .en { display: block; margin-top: 5px; font-size: 11px; color: rgba(184,220,255,.6); }
 
 /* ============================================================
    ABOUT — 照片 + 叙事 + 数据 + 简历
@@ -388,9 +443,16 @@ img { display: block; max-width: 100%; }
   gap: clamp(40px, 6vw, 96px);
   align-items: stretch;
 }
+/* 照片列：flex 纵向 + .portrait{flex:1}，
+   当右列（简介+统计+按钮）比照片高时，照片跟着长到同高，
+   照片底边就永远和右列底部的下载按钮对齐。flex-basis 用 auto 保留 3:4 的原始高度，
+   所以右列更矮的宽屏下照片不会被压小。 */
+.about-photo { display: flex; flex-direction: column; }
 .portrait {
   position: relative;
   aspect-ratio: 3 / 4;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow: hidden;
   background: var(--bg-deep);
 }
@@ -417,33 +479,29 @@ img { display: block; max-width: 100%; }
   padding: 6px 12px;
   border-radius: 99px;
 }
-.portrait-caption {
-  margin-top: 14px;
-  font-size: 11px;
-  letter-spacing: .2em;
-  color: var(--ink-faint);
-  text-transform: uppercase;
-}
 /* 右列：撑满左列高度，段间距由剩余空间弹性均分 */
 .about-bio {
+  --resume-gap: clamp(32px, 4vw, 48px);   /* 统计卡与按钮组之间的间距 */
   display: flex;
   flex-direction: column;
 }
-.about-bio .zh {
-  font-family: var(--display);
-  font-size: clamp(17px, 1.7vw, 23px);
-  line-height: 2;
+/* 首段导语：比正文大一档，Inter 常规字重保证长段可读性 */
+.bio-lead {
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 1.85;
   color: var(--ink);
-  margin-top: -.42em; /* 抵消首行半行距，使文字顶部与照片上沿齐平 */
+  margin-top: -.4em; /* 抵消首行半行距，使文字顶部与照片上沿齐平 */
+  /* 不加 max-width：文本块右端需与下方三个统计模块的最右侧对齐 */
 }
-.about-bio .zh strong { font-weight: 600; }
-.about-bio .en {
-  margin-top: 22px;
+.bio-lead strong { font-weight: 500; }
+/* 次段：浅灰、略小，作为收束句 */
+.bio-body {
+  margin-top: 18px;
   margin-bottom: clamp(36px, 5vw, 56px);
-  font-size: 14px;
-  line-height: 1.9;
+  font-size: clamp(13px, 1.15vw, 15px);
+  line-height: 1.8;
   color: var(--ink-faint);
-  max-width: 560px;
+  /* 同 .bio-lead：右端与统计模块对齐，不单独限宽 */
 }
 .about-stats {
   display: grid;
@@ -452,7 +510,7 @@ img { display: block; max-width: 100%; }
   background: var(--line);
   border: 1px solid var(--line);
   margin-top: auto;               /* 下推：与上方段落共享剩余空间 */
-  margin-bottom: clamp(32px, 4vw, 48px);
+  margin-bottom: var(--resume-gap);
 }
 .stat {
   background: var(--panel);
@@ -460,17 +518,24 @@ img { display: block; max-width: 100%; }
   transition: background .4s;
   display: flex;
   flex-direction: column;
+  cursor: pointer;                /* 单击展开明细 */
+  /* 行高加高到能容纳奖项面板的 9 条内容（展开层 inset:0 依赖这个高度）。
+     实测内容需求：双栏区间(>1200) 314~354px，单栏三列区间(761~1200) 235~311px；
+     故 floor 取 310、按 27vw 缩放、封顶 360，全区间留 ≥6px 余量；
+     竖排断点(≤760)另行放开（见下方 media query）。 */
+  min-height: clamp(310px, 27vw, 360px);
 }
-.stat:hover { background: var(--accent-soft); }
+.stat:hover,
+.stat.is-open { background: var(--accent-soft); }   /* 悬停预览浅蓝底；展开后保持 */
 .stat-num {
   font-family: var(--display);
-  font-weight: 600;
-  font-size: clamp(40px, 5vw, 68px);
+  font-weight: 500;
+  font-size: clamp(40px, 4.8vw, 64px);
   line-height: 1;
+  letter-spacing: -.03em;
 }
-.stat-num sup { font-size: .4em; color: var(--azure); }
+.stat-num sup { font-size: .4em; color: var(--azure-deep); }
 .stat-label { margin-top: 12px; font-size: 13px; color: var(--ink-soft); }
-.stat-label .en { display: block; font-size: 11px; color: var(--ink-faint); margin-top: 3px; }
 .stat-hint {
   margin-top: auto;                 /* 贴住卡片底部，与照片上的 "Hover 切换" 呼应 */
   padding-top: clamp(16px, 2vw, 26px);
@@ -479,32 +544,38 @@ img { display: block; max-width: 100%; }
   color: var(--ink-faint);
   transition: color .35s;
 }
-.stat:hover .stat-hint { color: var(--azure); }
+.stat:hover .stat-hint,
+.stat.is-open .stat-hint { color: var(--azure-deep); }   /* 卡片底色变浅蓝时，提示文字需加深 */
 
 /* ------------------------------------------------------------
-   统计卡 · 悬停展开层（奖项 / 求学 / 履历）
-   面板必须是 .stat 的后代——只有后代关系才能让 :hover 在面板上继续成立；
-   而 .stat 必须保持 static，让最近的非 static 祖先 .about-stats 充当包含块，
-   于是 inset:0 会铺满整行（9 条奖项才有横向空间），且不产生任何布局位移。
-   面板 pointer-events:none：不抢指针，鼠标在行内滑动可平滑切换三张卡。
+   统计卡 · 单击展开层（奖项 / 求学 / 履历）
+   交互：悬停只给浅蓝底色反馈，明细必须单击才露出（.is-open）。
+   还原：再次单击同一张卡、点击空白处、按 Esc、或进入作品详情页，都会关闭。
+   面板必须是 .stat 的后代——只有后代关系才能让 .stat.is-open 命中它；
+   而 .stat 必须保持 static，让最近的非 static 祖先 .about-stats 充当包含块。
+   尺寸：inset:0 让面板严格落在统计卡行的矩形内、不向下越界盖住按钮；
+   因此 .stat 用 min-height 把整行加高到足以容纳奖项的 9 条内容（实测调定）。
+   面板 pointer-events:none：不抢指针，单击能穿透到下方真正的 .stat 卡片上，
+   所以在展开态下依然可以自由切换到另一张卡 / 再次单击收起。
    ------------------------------------------------------------ */
 .about-stats { position: relative; }
 .stat-panel {
   position: absolute;
-  inset: 0;
+  inset: 0;                    /* 严格限定在统计卡行的范围内，绝不超出概览矩形 */
   z-index: 3;
   display: flex;
   flex-direction: column;
-  padding: clamp(18px, 2.2vw, 30px) clamp(16px, 2vw, 28px);
+  padding: clamp(14px, 1.6vw, 22px) clamp(16px, 2vw, 28px);
   background: #f7fbff;                            /* 最淡的婴儿蓝：标记"当前展开的是谁" */
   border: 1px solid rgba(91,147,209,.24);
+  overflow: hidden;            /* 兜底：万一极端宽度下内容略挤，也不许溢出矩形 */
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transform: translateY(8px);
   transition: opacity .34s ease, transform .52s cubic-bezier(.22,1,.36,1), visibility .34s;
 }
-.stat:hover .stat-panel { opacity: 1; visibility: visible; transform: none; }
+.stat.is-open .stat-panel { opacity: 1; visibility: visible; transform: none; }
 .panel-head {
   display: flex;
   align-items: baseline;
@@ -512,7 +583,7 @@ img { display: block; max-width: 100%; }
   gap: 18px;
   margin-bottom: clamp(12px, 1.6vw, 20px);
 }
-.panel-kicker { font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--azure); }
+.panel-kicker { font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--azure-deep); }
 .panel-count { font-family: var(--sans); font-size: 10px; letter-spacing: .2em; color: var(--ink-faint); }
 .panel-grid { display: grid; gap: 0 clamp(16px, 2.2vw, 34px); align-content: start; }
 .panel-grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -528,7 +599,7 @@ img { display: block; max-width: 100%; }
   border-top: 1px solid var(--line);
 }
 .award-name { font-size: 12px; line-height: 1.45; color: var(--ink); }
-.award-level { flex: none; font-family: var(--sans); font-size: 10.5px; letter-spacing: .08em; color: var(--azure); }
+.award-level { flex: none; font-family: var(--sans); font-size: 10.5px; letter-spacing: .08em; color: var(--azure-deep); }
 
 /* ② 求学：年份列 + 学校 / 专业 */
 .edu {
@@ -539,7 +610,7 @@ img { display: block; max-width: 100%; }
   padding: 10px 0;
   border-top: 1px solid var(--line);
 }
-.edu-years { font-family: var(--sans); font-size: 11px; letter-spacing: .08em; color: var(--azure); white-space: nowrap; }
+.edu-years { font-family: var(--sans); font-size: 11px; letter-spacing: .08em; color: var(--azure-deep); white-space: nowrap; }
 .edu-name { display: block; font-size: 12.5px; line-height: 1.5; color: var(--ink); }
 .edu-sub { display: block; margin-top: 3px; font-size: 11px; line-height: 1.5; color: var(--ink-faint); }
 
@@ -548,18 +619,35 @@ img { display: block; max-width: 100%; }
 .role-org { display: block; font-size: 13px; color: var(--ink); }
 .role-title { display: block; margin-top: 5px; font-size: 11px; line-height: 1.55; color: var(--ink-soft); }
 
-/* 简历下载按钮 */
-.resume-btn {
-  margin-top: auto;               /* 贴住左列底部：与照片/说明下沿齐平 */
+/* 简历下载按钮组：左中文简历 / 右英文 CV，两个按钮样式与动效完全一致。
+   对齐原理：.about-stats 的 margin-top:auto 吸收全部剩余空间（推到列底部），
+   按钮组紧随其后，由 stats 的 margin-bottom（--resume-gap）隔开固定间距。
+   注意：这里绝不能再加 margin-top:auto——两个 auto 会把剩余空间平摊进
+   "统计卡→按钮"的间隙，而展开面板按固定 --resume-gap 计算延伸高度，
+   间隙一旦变大按钮上沿就会从面板底下露出来。 */
+.resume-actions {
   align-self: flex-start;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* width:max-content 让整组收缩到"两个按钮各按自身文字宽"的总宽，
+     再由两列 1fr 均分 → 两个按钮等宽、又不会撑满整列。
+     不能用固定宽度：DOWNLOAD RESUME(CN) 的 12px/.22em 大写实测就有 201px。 */
+  width: max-content;
+  max-width: 100%;
+  gap: clamp(12px, 1.3vw, 18px);
+}
+.resume-btn {
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  padding: 16px 32px;
+  padding: 16px 30px;
   border: 1px solid var(--ink);
   font-size: 12px;
   letter-spacing: .22em;
+  justify-content: center;
   text-transform: uppercase;
+  text-indent: .22em;             /* 抵消末字符字距，让文字在按钮里真正居中 */
+  white-space: nowrap;
   position: relative;
   overflow: hidden;
   transition: color .45s;
@@ -578,6 +666,13 @@ img { display: block; max-width: 100%; }
 .resume-btn:hover::before { transform: scaleY(1); }
 .resume-btn svg { transition: transform .45s; }
 .resume-btn:hover svg { transform: translateY(3px); }
+/* 窄屏：两个按钮改上下堆叠，避免被 1fr 压缩后把 201px 宽的大写标签裁掉 */
+@media (max-width: 780px) {
+  .resume-actions { grid-template-columns: 1fr; width: 100%; }
+}
+@media (max-width: 440px) {
+  .resume-btn { padding: 15px 18px; letter-spacing: .12em; }
+}
 
 /* ============================================================
    FRAGMENTS — 视觉碎片（Pinterest 式瀑布流 · baby blue 底）
@@ -587,7 +682,7 @@ img { display: block; max-width: 100%; }
   padding: clamp(80px, 10vw, 140px) var(--gutter);
   background: var(--baby);
 }
-.fragments .section-kicker { color: var(--azure); }
+.fragments .section-kicker { color: var(--azure-deep); }   /* baby blue 底上必须用深档，浅蓝 2.6:1 不可读 */
 .masonry {
   columns: 4;
   column-gap: clamp(16px, 2vw, 28px);
@@ -600,9 +695,81 @@ img { display: block; max-width: 100%; }
   margin-bottom: clamp(16px, 2vw, 28px);
   background: #ffffff;
   border-radius: clamp(16px, 1.6vw, 24px);
-  transition: transform .5s cubic-bezier(.22,1,.36,1);
+  transition: transform .5s cubic-bezier(.22,1,.36,1), filter .5s ease;
+  /* 碎片作品色彩较多，统一压成黑白让瀑布流读作一个整体；
+     悬停 / 点开大图时还原原色（见 .tile:hover 与 lightbox）。 */
+  filter: grayscale(1);
+  cursor: zoom-in;
 }
-.tile:hover { transform: translateY(-6px); }
+.tile:hover { transform: translateY(-6px); filter: grayscale(0); }
+@media (hover: none) { .tile { filter: none; } }   /* 触屏设备没有悬停，直接显示原色 */
+
+/* ------------------------------------------------------------
+   FRAGMENTS LIGHTBOX — 碎片大图查看层（无二级页面）
+   全屏半透明黑幕把当前页整体压暗，图片居中放大显示、显示原色；
+   左右箭头样式与「精选作品二级页面」的 .viewer-nav 完全同款；
+   支持全部 12 张碎片循环翻页、滚轮/按钮缩放、放大后拖拽平移。
+   ------------------------------------------------------------ */
+.lightbox {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(23, 26, 30, .92);            /* 全屏略低透明度黑幕：压暗当前页面 */
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity .38s ease, visibility .38s;
+}
+.lightbox.open { opacity: 1; visibility: visible; }
+.lb-stage {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  cursor: grab;                                 /* 放大后可拖拽平移 */
+}
+.lb-stage.is-panning { cursor: grabbing; }
+.lb-img {
+  max-width: 88vw; max-height: 84vh;
+  width: auto; height: auto;
+  border-radius: 10px;
+  user-select: none; -webkit-user-drag: none;
+  will-change: transform;
+  transition: transform .28s cubic-bezier(.22,1,.36,1);
+}
+.lb-stage.is-panning .lb-img { transition: none; }  /* 拖拽时关闭过渡，跟手 */
+/* 左右翻页箭头：与二级页面 .viewer-nav 同款（46px 白色圆形） */
+.lb-nav {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+  width: 46px; height: 46px; border-radius: 50%; border: none;
+  background: #fff; color: var(--ink);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 14px rgba(43,47,51,.16);
+  transition: transform .3s, box-shadow .3s;
+}
+.lb-nav:hover { transform: translateY(-50%) scale(1.1); box-shadow: 0 4px 20px rgba(43,47,51,.22); }
+.lb-nav.prev { left: 26px; }
+.lb-nav.next { right: 26px; }
+.lb-nav svg { width: 18px; height: 18px; }
+/* 页码指示：与二级页面 .pager 同款（白色半透明胶囊） */
+.lb-count {
+  position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 2;
+  background: rgba(255,255,255,.75); backdrop-filter: blur(6px);
+  border-radius: 99px; padding: 8px 18px;
+  color: var(--ink-soft); font-family: var(--sans); font-size: 11px; letter-spacing: .18em;
+}
+.lb-count b { color: var(--ink); font-weight: 500; }
+/* 缩放按钮组：右下角，+/- 两档步进（滚轮也可缩放） */
+.lb-zoom {
+  position: absolute; right: 26px; bottom: 18px; z-index: 2;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.lb-zoom button {
+  width: 38px; height: 38px; border-radius: 50%; border: none;
+  background: rgba(255,255,255,.82); color: var(--ink);
+  font-family: var(--sans); font-size: 17px; line-height: 1;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 12px rgba(43,47,51,.14);
+  transition: transform .3s, box-shadow .3s;
+}
+.lb-zoom button:hover { transform: scale(1.1); box-shadow: 0 4px 18px rgba(43,47,51,.2); }
 
 /* ============================================================
    SKILLS — 图标墙
@@ -626,7 +793,6 @@ img { display: block; max-width: 100%; }
 .skill svg { width: 30px; height: 30px; stroke: var(--ink-soft); transition: stroke .4s; }
 .skill:hover svg { stroke: var(--azure); }
 .skill-name { font-size: 14px; color: var(--ink); }
-.skill-name .en { display: block; font-size: 11px; color: var(--ink-faint); margin-top: 3px; letter-spacing: .06em; }
 
 /* ============================================================
    CONTACT — 收尾（墨底蓝光）
@@ -657,23 +823,22 @@ img { display: block; max-width: 100%; }
 }
 .contact-title {
   font-family: var(--display);
-  font-weight: 600;
-  font-size: clamp(30px, 5.4vw, 76px);
-  line-height: 1.3;
-  letter-spacing: .05em;
+  font-weight: 500;
+  font-size: clamp(36px, 5.6vw, 80px);
+  line-height: 1.15;
+  letter-spacing: -.025em;
   max-width: 100%;
   margin-inline: auto;
 }
 .contact-title em { font-style: normal; color: var(--baby); }
-/* 中文大标题已移除：英文长句升为唯一 Contact 主标题，断行由 <br> 固定为两行
-   （.contact-title-en 保留为死样式，便于将来切回中英双语结构） */
+/* 长句主标题：Satoshi 400 / 字距 -0.025em / 行高 1.15 */
 .contact-title.is-en {
-  font-family: var(--sans);
-  font-weight: 500;
-  font-size: clamp(26px, 4.2vw, 58px);
-  line-height: 1.22;
-  letter-spacing: -.015em;
-  max-width: min(100%, 20em);
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(32px, 4.8vw, 70px);
+  line-height: 1.15;
+  letter-spacing: -.025em;
+  max-width: min(100%, 24em);
   margin-inline: auto;
   text-align: center;
   text-wrap: balance;
@@ -786,10 +951,10 @@ body.detail-mode #page-home { display: none; }
   margin-bottom: clamp(20px, 3vw, 36px);
   transition: color .3s;
 }
-.detail-back:hover { color: var(--azure); }
+.detail-back:hover { color: var(--azure-deep); }
 .detail-title {
-  font-family: var(--display); font-weight: 600;
-  font-size: clamp(30px, 4vw, 58px); line-height: 1.2; letter-spacing: .04em;
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(34px, 4.3vw, 66px); line-height: 1.1; letter-spacing: -.025em;
 }
 .detail-sub { margin-top: 10px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-faint); }
 .detail-desc { margin-top: 18px; font-size: 14px; color: var(--ink-soft); max-width: 560px; }
@@ -906,8 +1071,13 @@ body.detail-mode #page-home { display: none; }
 /* ============================================================
    RESPONSIVE
    ============================================================ */
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
+  /* About 双栏收窄到 1200 以下时，照片会被右列竖向拉长、裁掉过多画面；
+     改单栏堆叠更稳，按钮与照片的"底部对齐"也就自然成立了。 */
   .about-grid { grid-template-columns: 1fr; }
+  .portrait { max-width: 440px; }
+}
+@media (max-width: 900px) {
   .portrait { max-width: 420px; }
   .masonry { columns: 3; }
 }
@@ -922,6 +1092,9 @@ body.detail-mode #page-home { display: none; }
   .work-index { left: auto; right: 24px; bottom: auto; top: 50%; transform: translateY(-50%); }
   .work-body { transform: translateY(40%); }
   .about-stats { grid-template-columns: 1fr; }
+  /* 三张卡竖排后整列已经很高，展开层 inset:0 铺满整列绰绰有余，
+     不需要单卡再加高，恢复内容自然高度避免大块空白。 */
+  .stat { min-height: 0; }
   .footer { flex-direction: column; gap: 10px; }
 }
 @media (max-width: 560px) {
@@ -941,6 +1114,7 @@ body.detail-mode #page-home { display: none; }
   <div class="nav-links" data-page-node-id="Q7OstElyDkPRE8zPITEDIS">
     <a href="#work" data-page-node-id="DlERIC2JTbrEZns7f1mRux">Work</a>
     <a href="#about" data-page-node-id="tzXGCQyrXRDYyymQivmqcQ">About</a>
+    <a href="#fragments" data-page-node-id="XbF2kQ9sTwRn7VdYpLmCe4a">Fragments</a>
     <a href="#contact" data-page-node-id="WmoGdF0V5bGUFeISbEqAIV">Contact</a>
   </div>
 </nav>
@@ -962,7 +1136,7 @@ body.detail-mode #page-home { display: none; }
 <!-- ================= FEATURED WORK ================= -->
 <section class="section work" id="work" data-page-node-id="bAYOhFC0i6oyFBaC2rlJZI">
   <div class="section-head" data-page-node-id="J6EH8kvuzxh6NYopRQ9ooy">
-    <p class="section-kicker reveal in" data-page-node-id="IsudDAMYroOB5MNsIDqbgX">精选作品 · Selected Work</p>
+    <p class="section-kicker reveal in" data-page-node-id="IsudDAMYroOB5MNsIDqbgX"><svg class="kicker-mark" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.2 3.1 9.22 6 4.2 8.9Z"></path></svg>Selected Work</p>
     <h2 class="section-title is-en reveal reveal-d1 in" data-page-node-id="XBsRShd6VvG9C5zUIoXFZ0">Four monologues, written for the quiet ones.</h2>
   </div>
 
@@ -971,12 +1145,12 @@ body.detail-mode #page-home { display: none; }
     <article class="work-item" data-page-node-id="wKvBAgTOuVzmnBnA1LCjag">
       <div class="work-cover cover-1" data-page-node-id="PWJwlXwtcJq5viQeWGaXAP"></div>
       <span class="work-spine" data-page-node-id="7er5oHLRSkHBlT0lpORgxa">Solitude's Embrace</span>
-      <span class="work-index" data-page-node-id="GHKsYjtunFAfXS7Gnc8PGd">壹 / 01</span>
+      <span class="work-index" data-page-node-id="GHKsYjtunFAfXS7Gnc8PGd">01</span>
       <div class="work-body" data-page-node-id="WT9MHRWKKT0Sgm4fR2xJ8D">
-        <p class="work-type" data-page-node-id="IXNHlTVtF5rGfqqSyfCdVM">产品与体验设计 · 医疗关怀</p>
-        <h3 class="work-title-zh" data-page-node-id="7up1W0GW3YoCCiqg8u4kfA">孤独深触</h3>
-        <p class="work-title-en" data-page-node-id="zT3VMUM4DDDvrWJXuAQYti">Solitude's Embrace</p>
-        <p class="work-desc" data-page-node-id="rTbh01sjRDf4dgKkaRyCIr">当拥抱变得稀薄，设计成为触碰的另一种方式。<span class="en" data-page-node-id="B7OXf3HZ3gH1DbOR7FSdId">When touch grows rare, design becomes the hand that remains.</span></p>
+        <p class="work-type" data-page-node-id="IXNHlTVtF5rGfqqSyfCdVM">Product &amp; Experience Design · Care</p>
+        <h3 class="work-title" data-page-node-id="7up1W0GW3YoCCiqg8u4kfA">Solitude's Embrace</h3>
+        <p class="work-title-en" data-page-node-id="zT3VMUM4DDDvrWJXuAQYti">One · 2024</p>
+        <p class="work-desc" data-page-node-id="rTbh01sjRDf4dgKkaRyCIr">When touch grows rare, design becomes the hand that remains.</p>
       </div>
     </article>
 
@@ -984,12 +1158,12 @@ body.detail-mode #page-home { display: none; }
     <article class="work-item has-video" data-page-node-id="zTTUCkNgX6bphcLvhI7Sgj">
       <div class="work-cover cover-2" data-page-node-id="TKnH45ftFCDWFi2fs2fH5z"></div>
       <span class="work-spine" data-page-node-id="y3BfdAPdAAPpQVs03upyMP">Silence Taming</span>
-      <span class="work-index" data-page-node-id="QfwsJK4InhF7K7PtrLcoZm">贰 / 02</span>
+      <span class="work-index" data-page-node-id="QfwsJK4InhF7K7PtrLcoZm">02</span>
       <div class="work-body" data-page-node-id="D0Xn0ILntMB5a8N9EI65QT">
-        <p class="work-type" data-page-node-id="7uvEOwkaxqd9f6TtWwqkda">装置艺术 · 影像装置</p>
-        <h3 class="work-title-zh" data-page-node-id="RlpmbYAyzZQgWFuWEYCQZZ">沉默驯化</h3>
-        <p class="work-title-en" data-page-node-id="cqRulAxRLGXvQ7dqgJD1g5">Silence Taming</p>
-        <p class="work-desc" data-page-node-id="y0PltcNSSlIp5vMhZNu0zu">恐惧不是终点，是被听见的开始。<span class="en" data-page-node-id="cjkRpKLYYQnStcS9JLWV7R">Fear isn't the end. It's where being heard begins.</span></p>
+        <p class="work-type" data-page-node-id="7uvEOwkaxqd9f6TtWwqkda">Installation · Moving Image</p>
+        <h3 class="work-title" data-page-node-id="RlpmbYAyzZQgWFuWEYCQZZ">Silence Taming</h3>
+        <p class="work-title-en" data-page-node-id="cqRulAxRLGXvQ7dqgJD1g5">Two · 2025</p>
+        <p class="work-desc" data-page-node-id="y0PltcNSSlIp5vMhZNu0zu">Fear isn't the end. It's where being heard begins.</p>
       </div>
     </article>
 
@@ -997,12 +1171,12 @@ body.detail-mode #page-home { display: none; }
     <article class="work-item has-video" data-page-node-id="DGX9tNwxl4BWJsQBNmhXZq">
       <div class="work-cover cover-3" data-page-node-id="Q9KjcKSjwfmqSvL9H3AB7f"></div>
       <span class="work-spine" data-page-node-id="J7gOGcBDJ1CHJlH6wkZ0kL">Idol Forge</span>
-      <span class="work-index" data-page-node-id="Gg4a0b5PRMhpWtJoWDbBBo">叁 / 03</span>
+      <span class="work-index" data-page-node-id="Gg4a0b5PRMhpWtJoWDbBBo">03</span>
       <div class="work-body" data-page-node-id="ynZ4erMhqovbrve0MerrjU">
-        <p class="work-type" data-page-node-id="KT623mlibeEMkMuZ57KQeJ">Web3 产品设计 · 虚拟偶像平台</p>
-        <h3 class="work-title-zh" data-page-node-id="mzge517gPTwsGnM1FemyqG">偶像制造</h3>
-        <p class="work-title-en" data-page-node-id="5Vjx9x7T2EEIHJFt9HkOCa">Idol Forge</p>
-        <p class="work-desc" data-page-node-id="gmRYGF7bmL0c5S6GWuNa9U">在虚拟与真实之间，锻造一份共同拥有的星光。<span class="en" data-page-node-id="StofU8cMjFxWDdf4BoihYB">Between real and virtual, forging a light everyone can hold.</span></p>
+        <p class="work-type" data-page-node-id="KT623mlibeEMkMuZ57KQeJ">Web3 Product · Virtual Idol Platform</p>
+        <h3 class="work-title" data-page-node-id="mzge517gPTwsGnM1FemyqG">Idol Forge</h3>
+        <p class="work-title-en" data-page-node-id="5Vjx9x7T2EEIHJFt9HkOCa">Three · 2025</p>
+        <p class="work-desc" data-page-node-id="gmRYGF7bmL0c5S6GWuNa9U">Between real and virtual, forging a light everyone can hold.</p>
       </div>
     </article>
 
@@ -1010,12 +1184,12 @@ body.detail-mode #page-home { display: none; }
     <article class="work-item has-video" data-page-node-id="i7HmsHkanduMlyAVBN3AJy">
       <div class="work-cover cover-4" data-page-node-id="RslpyBvrlL7AuRA3rPKwRe"></div>
       <span class="work-spine" data-page-node-id="AafVZ94kdDYfAWQlv0VbwG">PASS</span>
-      <span class="work-index" data-page-node-id="oQkqZnXbuAKUGX6r9W1tc0">肆 / 04</span>
+      <span class="work-index" data-page-node-id="oQkqZnXbuAKUGX6r9W1tc0">04</span>
       <div class="work-body" data-page-node-id="rC1iZTjW9FDAe7qON5tUqV">
-        <p class="work-type" data-page-node-id="yhUsC8lEuU2TBbJVaa9K4y">游戏设计 · 叙事系统</p>
-        <h3 class="work-title-zh" data-page-node-id="WaqtO2FUyZWRdLTmau3Emz">过</h3>
-        <p class="work-title-en" data-page-node-id="dzri9OjLstjvHfVTq8QyPQ">PASS</p>
-        <p class="work-desc" data-page-node-id="GO8Itqs18suOTHnUIUz9tW">资源计算到最后一位，人成了被四舍五入的数字。<span class="en" data-page-node-id="SUgtTGlqgokpus4elkNHYo">When resources are calculated to the last digit, people become the rounding error.</span></p>
+        <p class="work-type" data-page-node-id="yhUsC8lEuU2TBbJVaa9K4y">Game Design · Narrative System</p>
+        <h3 class="work-title" data-page-node-id="WaqtO2FUyZWRdLTmau3Emz">PASS</h3>
+        <p class="work-title-en" data-page-node-id="dzri9OjLstjvHfVTq8QyPQ">Four · 2025</p>
+        <p class="work-desc" data-page-node-id="GO8Itqs18suOTHnUIUz9tW">When resources are calculated to the last digit, people become the rounding error.</p>
       </div>
     </article>
   </div>
@@ -1024,94 +1198,101 @@ body.detail-mode #page-home { display: none; }
 <!-- ================= ABOUT ================= -->
 <section class="section" id="about" data-page-node-id="jHmtM30FEDr35TvTgFLlte">
   <div class="section-head" data-page-node-id="E70i1Vx3qsGlf2bs0aHS5K">
-    <p class="section-kicker reveal in" data-page-node-id="lTw9UIUWP16EiyrQk1EOV5">关于我 · About</p>
+    <p class="section-kicker reveal in" data-page-node-id="lTw9UIUWP16EiyrQk1EOV5"><svg class="kicker-mark" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.2 3.1 9.22 6 4.2 8.9Z"></path></svg>About</p>
     <h2 class="section-title is-en reveal reveal-d1 in" data-page-node-id="vguHy7MwAhRH420qGPYies">One who paints light, learning to be painted by it.</h2>
   </div>
 
   <div class="about-grid" data-page-node-id="PV0ATki5GhVSLoZHCKF8Yf">
-    <div class="reveal in" data-page-node-id="JVmWRUARvAdCoCReXHGSgT">
+    <div class="about-photo reveal in" data-page-node-id="JVmWRUARvAdCoCReXHGSgT">
       <!-- 个人照片：两张，悬停切换 -->
-      <div class="portrait" title="悬停切换照片" data-page-node-id="NX1quPR6DvJcDreAGlqhWS">
-        <img class="portrait-frame f1" src="assets/about-1.jpg" alt="Itzel Tang 在白鸽装置前" data-page-node-id="tmNE9u7hjxRLIHJ8OLpd57">
-        <img class="portrait-frame f2" src="assets/about-2.jpg" alt="Itzel Tang 与烛光" data-page-node-id="sfi095eKTh2DWzuyFH29kL">
-        <span class="portrait-hint" data-page-node-id="oWLAMu07Cke7AFbXC7YYww">Hover 切换</span>
+      <div class="portrait" title="Hover to switch photo" data-page-node-id="NX1quPR6DvJcDreAGlqhWS">
+        <img class="portrait-frame f1" src="assets/about-1.jpg" alt="Itzel Tang in front of a dove installation" data-page-node-id="tmNE9u7hjxRLIHJ8OLpd57">
+        <img class="portrait-frame f2" src="assets/about-2.jpg" alt="Itzel Tang with candlelight" data-page-node-id="sfi095eKTh2DWzuyFH29kL">
+        <span class="portrait-hint" data-page-node-id="oWLAMu07Cke7AFbXC7YYww">Hover</span>
       </div>
-      <p class="portrait-caption" data-page-node-id="KGHOSS8539wPnN6WRx0LD6">Itzel Tang — Stage / Brand / AI</p>
     </div>
 
     <div class="about-bio reveal reveal-d1 in" data-page-node-id="iuYuImgAQSA8xhdcWrv9W6">
-      <p class="zh" data-page-node-id="tWSAyaFAef5wQAJnmvZos4" style="cursor: text;"><strong data-page-node-id="AVv0QVGvCoD0Orkslut3H1">唐畅蓥子</strong>，中央戏剧学院舞台设计出身，现于香港科技大学攻读 Master of Art of Art and Machine Creativity。六年里，我在剧场画光、在品牌里造词、在 AI 的缝隙里练习新的手艺。我相信设计不是装饰生活，而是替说不出口的情绪，找一个可以被看见的形状。</p>
-      <p class="en" data-page-node-id="S1V62B8E2YgR8anbU56CCM">Itzel Tang trained in stage design and is now studying Art and Machine Creativity at HKUST. Six years spent painting light for the theatre, writing for brands, and learning a new craft in the space AI leaves open. She believes design doesn't decorate life — it gives an unspeakable feeling a shape you can finally see.</p>
+      <p class="bio-lead" data-page-node-id="tWSAyaFAef5wQAJnmvZos4"><strong data-page-node-id="AVv0QVGvCoD0Orkslut3H1">Itzel Tang</strong> studied stage design at the Central Academy of Drama, then spent five years in the theatre working with sets, light and space. She now moves between stage, brand and machine learning, and is completing a master's in Art and Machine Creativity at HKUST.</p>
+      <p class="bio-body" data-page-node-id="S1V62B8E2YgR8anbU56CCM">Most projects start the same way: with a feeling she wants people to have, and a long search for the simplest thing that produces it.</p>
 
       <div class="about-stats" data-page-node-id="YJo8kmEMzO8HtSXVCQU2k4">
         <div class="stat" data-page-node-id="wSnP1p5uI4HeC1dnBnc1Ao">
           <div class="stat-num" data-page-node-id="EC0o8YS6iRPqMlAml78HiE">10<sup>+</sup></div>
-          <p class="stat-label" data-page-node-id="4jcH02yLEz4qawv1M9LfTK">国际设计荣誉<span class="en" data-page-node-id="5bdlumRtBlLh4ZziDgMNq5">International design honors</span></p>
-          <p class="stat-hint" data-page-node-id="nHq3xRjEyZaWv7oMwKJi2Q">悬停查看 · Hover</p>
+          <p class="stat-label" data-page-node-id="4jcH02yLEz4qawv1M9LfTK">International design honors</p>
+          <p class="stat-hint" data-page-node-id="nHq3xRjEyZaWv7oMwKJi2Q">Click to view</p>
           <!-- 悬停展开：9 项获奖明细 -->
           <div class="stat-panel" data-page-node-id="VtGk5bLqCoTz0yRfPmUdxE">
             <div class="panel-head" data-page-node-id="BwRm4sPfQdAx8nYcVhZoKl">
-              <span class="panel-kicker" data-page-node-id="ZsQd7mHyVaJk2lNrIwTxgC">国际设计荣誉 · Awards</span>
+              <span class="panel-kicker" data-page-node-id="ZsQd7mHyVaJk2lNrIwTxgC">Awards</span>
               <span class="panel-count" data-page-node-id="LrN5cXbGvPdT9jEyKqUfMo">09</span>
             </div>
             <div class="panel-grid cols-2" data-page-node-id="MvYc3TgHnQpRd8FxSkWoUb">
-              <div class="award" data-page-node-id="JdPf6sQmWzLx2bVnRyToUc"><span class="award-name" data-page-node-id="HkEy8nWqVdTx5mRbCfLsAj">芬兰 AG 设计奖</span><span class="award-level" data-page-node-id="QbZp4fLuCwNm7yXsDtGrVe">金奖</span></div>
-              <div class="award" data-page-node-id="TnAr2wVyBeMk9cJfLpXsQg"><span class="award-name" data-page-node-id="WfLb6yQpKdRv3nTzHaCmUx">FA 国际前沿创新艺术设计大赛</span><span class="award-level" data-page-node-id="YsVc5mJbXnQp8wFrTkLdAo">金奖</span></div>
-              <div class="award" data-page-node-id="CqXd9kSmLvPb4nWfyRtJaZ"><span class="award-name" data-page-node-id="PmHt3xLqWcNb7yVdRsKfEj">第六届香港新锐当代设计奖</span><span class="award-level" data-page-node-id="UvJd8rFpQmXk2bNsYcTgWl">金奖</span></div>
-              <div class="award" data-page-node-id="GxWe7fPbQsTd3mJrLhVnYc"><span class="award-name" data-page-node-id="NzKq5bVtWmRp9xCfHsJyLd">新加坡金沙艺术设计大赛</span><span class="award-level" data-page-node-id="DmTy2nQfLwKb6rVpXcSjUg">银奖</span></div>
-              <div class="award" data-page-node-id="RyVo4cHqPfMd8nLsWtZbXk"><span class="award-name" data-page-node-id="KbLx9mQwVfTy3rJpNsCdEh">第四届 ICAD 国际当代青年美术设计大赛</span><span class="award-level" data-page-node-id="SnJf6yRdQvWm2bXpLcTgUa">银奖</span></div>
-              <div class="award" data-page-node-id="XcMp3tQnLdRb7fVwYsKjHZ"><span class="award-name" data-page-node-id="TwYb8nFqVmPs4rJdLxCkUg">The UK New Concept Design Award</span><span class="award-level" data-page-node-id="PvHd5sQmWnTx9bRfYcLgJa">入围</span></div>
-              <div class="award" data-page-node-id="QfLs2mWvBtRd6yXpNcTjUh"><span class="award-name" data-page-node-id="MxKq7bVnWfPm3rTdHsCyLg">英国国际艺术设计大赛</span><span class="award-level" data-page-node-id="LdTg4nQpVsRb8mXfYcKjWa">铜奖</span></div>
-              <div class="award" data-page-node-id="VnHs9cQfWmTb2kRpLdXgYj"><span class="award-name" data-page-node-id="BqWt6mLpKfVn3yJdRsChUx">第五届香港青年设计奖（YDA）</span><span class="award-level" data-page-node-id="YrXc8nQvBmPd5sTfLjKgWa">二等奖</span></div>
-              <div class="award" data-page-node-id="KdRm7tQnWfVb3yLpXsCjHg"><span class="award-name" data-page-node-id="TfYn5bVqWmKd9rPpLsCxUj">香港数字艺术设计大赛</span><span class="award-level" data-page-node-id="WpLg2nQdVsMb6rXfYcTjHa">三等奖</span></div>
+              <div class="award" data-page-node-id="JdPf6sQmWzLx2bVnRyToUc"><span class="award-name" data-page-node-id="HkEy8nWqVdTx5mRbCfLsAj">Finnish AG Design Award</span><span class="award-level" data-page-node-id="QbZp4fLuCwNm7yXsDtGrVe">Gold</span></div>
+              <div class="award" data-page-node-id="TnAr2wVyBeMk9cJfLpXsQg"><span class="award-name" data-page-node-id="WfLb6yQpKdRv3nTzHaCmUx">FA International Frontier Art &amp; Design Competition</span><span class="award-level" data-page-node-id="YsVc5mJbXnQp8wFrTkLdAo">Gold</span></div>
+              <div class="award" data-page-node-id="CqXd9kSmLvPb4nWfyRtJaZ"><span class="award-name" data-page-node-id="PmHt3xLqWcNb7yVdRsKfEj">6th Hong Kong Emerging Contemporary Design Award</span><span class="award-level" data-page-node-id="UvJd8rFpQmXk2bNsYcTgWl">Gold</span></div>
+              <div class="award" data-page-node-id="GxWe7fPbQsTd3mJrLhVnYc"><span class="award-name" data-page-node-id="NzKq5bVtWmRp9xCfHsJyLd">Singapore Marina Bay Art &amp; Design Competition</span><span class="award-level" data-page-node-id="DmTy2nQfLwKb6rVpXcSjUg">Silver</span></div>
+              <div class="award" data-page-node-id="RyVo4cHqPfMd8nLsWtZbXk"><span class="award-name" data-page-node-id="KbLx9mQwVfTy3rJpNsCdEh">4th ICAD International Contemporary Youth Art &amp; Design Competition</span><span class="award-level" data-page-node-id="SnJf6yRdQvWm2bXpLcTgUa">Silver</span></div>
+              <div class="award" data-page-node-id="XcMp3tQnLdRb7fVwYsKjHZ"><span class="award-name" data-page-node-id="TwYb8nFqVmPs4rJdLxCkUg">The UK New Concept Design Award</span><span class="award-level" data-page-node-id="PvHd5sQmWnTx9bRfYcLgJa">Finalist</span></div>
+              <div class="award" data-page-node-id="QfLs2mWvBtRd6yXpNcTjUh"><span class="award-name" data-page-node-id="MxKq7bVnWfPm3rTdHsCyLg">UK International Art &amp; Design Competition</span><span class="award-level" data-page-node-id="LdTg4nQpVsRb8mXfYcKjWa">Bronze</span></div>
+              <div class="award" data-page-node-id="VnHs9cQfWmTb2kRpLdXgYj"><span class="award-name" data-page-node-id="BqWt6mLpKfVn3yJdRsChUx">5th Hong Kong Youth Design Award (YDA)</span><span class="award-level" data-page-node-id="YrXc8nQvBmPd5sTfLjKgWa">Second Prize</span></div>
+              <div class="award" data-page-node-id="KdRm7tQnWfVb3yLpXsCjHg"><span class="award-name" data-page-node-id="TfYn5bVqWmKd9rPpLsCxUj">Hong Kong Digital Art &amp; Design Competition</span><span class="award-level" data-page-node-id="WpLg2nQdVsMb6rXfYcTjHa">Third Prize</span></div>
             </div>
           </div>
         </div>
         <div class="stat" data-page-node-id="1bcd5Se5YoqGQVx5A7Vb6d">
           <div class="stat-num" data-page-node-id="RCMPXHsSsnnMtg87ydNGBM" style="">7</div>
-          <p class="stat-label" data-page-node-id="ga3Q6eTCGvgyZBADXKAEFK">年创作生涯<span class="en" data-page-node-id="z5qRabntCDtyOyiYqgCBzq">Years of practice</span></p>
-          <p class="stat-hint" data-page-node-id="HsVq4mTfLbRd8nXpYcKjWg">悬停查看 · Hover</p>
+          <p class="stat-label" data-page-node-id="ga3Q6eTCGvgyZBADXKAEFK">Years of practice</p>
+          <p class="stat-hint" data-page-node-id="HsVq4mTfLbRd8nXpYcKjWg">Click to view</p>
           <!-- 悬停展开：求学经历 -->
           <div class="stat-panel" data-page-node-id="RmTb6nQfWsPd3yLpXcVjUa">
             <div class="panel-head" data-page-node-id="QnLd5mWvBfTx9rPpYsCkUg">
-              <span class="panel-kicker" data-page-node-id="VcXj7nQmWbTd4rLpKsYfUh">创作生涯 · Study &amp; Practice</span>
+              <span class="panel-kicker" data-page-node-id="VcXj7nQmWbTd4rLpKsYfUh">Study &amp; Practice</span>
               <span class="panel-count" data-page-node-id="BgPt2nQvLmWd7rXfYcKjSa">2020 — 2027</span>
             </div>
             <div class="panel-grid cols-1" data-page-node-id="WfLq3mTvBnRd8yPpXsCkUj">
               <div class="edu" data-page-node-id="LpTd6nQfWmRb3yVpXsCjUg">
                 <span class="edu-years" data-page-node-id="YsVc5nQmWbTd8rLpKfXjUa">2020 — 2025</span>
-                <span class="edu-body" data-page-node-id="MnQb9tWvLfRd4yPpXsCjUg"><span class="edu-name" data-page-node-id="KgWt3mLpVfBn8yRdXsChUj">中央戏剧学院 · 舞台设计（本科）</span><span class="edu-sub" data-page-node-id="TwYb7nQmVdPf2rLpXsCjUg">Central Academy of Drama · Stage Design, BA</span></span>
+                <span class="edu-body" data-page-node-id="MnQb9tWvLfRd4yPpXsCjUg"><span class="edu-name" data-page-node-id="KgWt3mLpVfBn8yRdXsChUj">Central Academy of Drama · Stage Design</span><span class="edu-sub" data-page-node-id="TwYb7nQmVdPf2rLpXsCjUg">BA, Beijing</span></span>
               </div>
               <div class="edu" data-page-node-id="QmHs5cWfBnTd9rLpXsVjUg">
                 <span class="edu-years" data-page-node-id="LdPg8nQvWmTb3rXfYsKjUa">2025 — 2027</span>
-                <span class="edu-body" data-page-node-id="VtKq4mWfBnRd7yLpXsCjUg"><span class="edu-name" data-page-node-id="HsJd2nQvWbTm9rLpKfXcUg">香港科技大学 · Art and Machine Creativity（硕士）</span><span class="edu-sub" data-page-node-id="BfWq6mTvLnRd3yPpXsCjUg">HKUST · Art and Machine Creativity, MFA</span></span>
+                <span class="edu-body" data-page-node-id="VtKq4mWfBnRd7yLpXsCjUg"><span class="edu-name" data-page-node-id="HsJd2nQvWbTm9rLpKfXcUg">HKUST · Art and Machine Creativity</span><span class="edu-sub" data-page-node-id="BfWq6mTvLnRd3yPpXsCjUg">MFA, Hong Kong</span></span>
               </div>
             </div>
           </div>
         </div>
         <div class="stat" data-page-node-id="brangzEzC1NKrY9SkOC23A">
           <div class="stat-num" data-page-node-id="iQOYC8stmXq09chVsGJ2wo">4</div>
-          <p class="stat-label" data-page-node-id="ueeGxG66c0yhZykKEon4lz" style="cursor: text;">跨界身份 · 舞台设计师 / 策展人 / 数字媒体设计师 / AI 创作者<span class="en" data-page-node-id="HmHgnzKoMxvB4lbjzHeiAX">Interdisciplinary roles</span></p>
-          <p class="stat-hint" data-page-node-id="YrXc5nQvBmTd8rLpKfWjUg">悬停查看 · Hover</p>
+          <p class="stat-label" data-page-node-id="ueeGxG66c0yhZykKEon4lz">Interdisciplinary roles</p>
+          <p class="stat-hint" data-page-node-id="YrXc5nQvBmTd8rLpKfWjUg">Click to view</p>
           <!-- 悬停展开：跨界履历 -->
           <div class="stat-panel" data-page-node-id="TfWq2mTvBnLd7yRpXsCjUg">
             <div class="panel-head" data-page-node-id="KdPm6nQfWbRv3yLpXsTjUg">
-              <span class="panel-kicker" data-page-node-id="BwLs9nQvWmTd4rXfYcKjUa">跨界身份 · Roles</span>
+              <span class="panel-kicker" data-page-node-id="BwLs9nQvWmTd4rXfYcKjUa">Roles</span>
               <span class="panel-count" data-page-node-id="VtYq5mTfLnRd8yPpXsCjUg">03</span>
             </div>
             <div class="panel-grid cols-3" data-page-node-id="MnQd3cWvBfTb9yRpXsLjUg">
-              <div class="role" data-page-node-id="QfLs7nQvWmTd3rXpYcKjUa"><span class="role-org" data-page-node-id="HsTb4mWfLnRd8yPpXsCjUg">联想</span><span class="role-title" data-page-node-id="WpLg9nQdVsMb5rXfYcTjUa">新媒体运营</span></div>
-              <div class="role" data-page-node-id="BdKm2cWfLpTn7yRpXsVjUg"><span class="role-org" data-page-node-id="YrXc6nQvBmPd4rLfKsTjUa">富途</span><span class="role-title" data-page-node-id="TwYn8mQvLfRd3yPpXsCjUg">雇主品牌运营 &amp; 视觉设计</span></div>
-              <div class="role" data-page-node-id="VnHs3cQfWmTb9yRpLdXjUg"><span class="role-org" data-page-node-id="LdPg5nQvWbTm8rXfYcKjUa">芒果</span><span class="role-title" data-page-node-id="KmQt7nWvBfRd2yPpXsCjUg">影视制作</span></div>
+              <div class="role" data-page-node-id="QfLs7nQvWmTd3rXpYcKjUa"><span class="role-org" data-page-node-id="HsTb4mWfLnRd8yPpXsCjUg">Lenovo</span><span class="role-title" data-page-node-id="WpLg9nQdVsMb5rXfYcTjUa">New Media Operations</span></div>
+              <div class="role" data-page-node-id="BdKm2cWfLpTn7yRpXsVjUg"><span class="role-org" data-page-node-id="YrXc6nQvBmPd4rLfKsTjUa">Futu</span><span class="role-title" data-page-node-id="TwYn8mQvLfRd3yPpXsCjUg">Employer Brand &amp; Visual Design</span></div>
+              <div class="role" data-page-node-id="VnHs3cQfWmTb9yRpLdXjUg"><span class="role-org" data-page-node-id="LdPg5nQvWbTm8rXfYcKjUa">Mango TV</span><span class="role-title" data-page-node-id="KmQt7nWvBfRd2yPpXsCjUg">Film &amp; TV Production</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <a class="resume-btn" href="#" download="" data-page-node-id="BTagGejgJyCfzZMd9GyHBG">
-        Download Resume · 下载简历
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-page-node-id="gZtGHfJzpCtzdOhw6MAPVj"><path d="M12 3v13m0 0l-5-5m5 5l5-5M4 21h16" data-page-node-id="dRhwbG5WjJ6uUozd1RkC1q"></path></svg>
-      </a>
+      <!-- 两个简历下载入口：左中文简历 / 右英文 CV。
+           download 属性让点击直接落盘、不新开页面；后续换简历只需覆盖 assets/ 下的同名 PDF。 -->
+      <div class="resume-actions">
+        <a class="resume-btn" href="assets/Itzel_Resume.pdf" download="Itzel_Resume.pdf" data-page-node-id="BTagGejgJyCfzZMd9GyHBG">
+          Download Resume(CN)
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-page-node-id="gZtGHfJzpCtzdOhw6MAPVj"><path d="M12 3v13m0 0l-5-5m5 5l5-5M4 21h16" data-page-node-id="dRhwbG5WjJ6uUozd1RkC1q"></path></svg>
+        </a>
+        <a class="resume-btn" href="assets/Itzel_CV.pdf" download="Itzel_CV.pdf" data-page-node-id="QmCvN7xRfLd2TbZs9WkYuPa">
+          Download CV(EN)
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-page-node-id="ZtKw6dVbNq3xFhRj8PmCeYo"><path d="M12 3v13m0 0l-5-5m5 5l5-5M4 21h16" data-page-node-id="LpW9rYxTn4BvGkQ2HsMdEuA"></path></svg>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -1119,57 +1300,53 @@ body.detail-mode #page-home { display: none; }
 <!-- ================= FRAGMENTS ================= -->
 <section class="fragments" id="fragments" data-page-node-id="Te39G2jwPznbozALQSsLVq">
   <div class="section-head" data-page-node-id="9gAE8lbDMWapYdYAoVbevG">
-    <p class="section-kicker reveal in" data-page-node-id="I38NFnYJffOJb29dCsFglG">视觉碎片 · Fragments</p>
+    <p class="section-kicker reveal in" data-page-node-id="I38NFnYJffOJb29dCsFglG"><svg class="kicker-mark" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.2 3.1 9.22 6 4.2 8.9Z"></path></svg>Fragments</p>
     <h2 class="section-title is-en reveal reveal-d1 in" data-page-node-id="GI5XyUbKekoG1S1m3e6bh1">Little studies, still unnamed.</h2>
   </div>
   <div class="masonry reveal in" data-page-node-id="QuGtv43TzDPINNO0Lu8OKi">
     <!-- 12 张视觉碎片：宽度撑满列宽，高度按原始比例自适应（不裁切、不变形）
          DOM 顺序 = CSS columns 的列优先填充顺序，用于平衡各列高度：
            列1 碎片 01-03 / 列2 碎片 04-06 / 列3 碎片 07-09 / 列4 碎片 10-12 -->
-    <img class="tile" src="assets/frag-01.jpg" alt="舞台分镜 · 四幕拼版一" data-page-node-id="rGzZSRdvr2NNIZmJdRJ2U0">
-    <img class="tile" src="assets/frag-02.jpg" alt="电子装置渲染图" data-page-node-id="LDl9gc5LebMErrH6bNIDEI">
-    <img class="tile" src="assets/frag-03.jpg" alt="明信片与信纸设计" data-page-node-id="3zK3MznWg11Thwk6JoEnjq">
-    <img class="tile" src="assets/frag-04.jpg" alt="舞台分镜 · 四幕拼版二" data-page-node-id="SvoGU3tkXqKI0nbLEockK0">
-    <img class="tile" src="assets/frag-05.jpg" alt="剧场模型与亚克力装置" data-page-node-id="ftOf2WFYcAofdXAXtxH0rA">
-    <img class="tile" src="assets/frag-06.jpg" alt="舞台分镜 · 四幕拼版三" data-page-node-id="VpdLojHBZJ1964Bu3cEPyo">
-    <img class="tile" src="assets/frag-07.jpg" alt="舞台分镜 · 四幕拼版四" data-page-node-id="VzbhOS8lW0A38tM71O6iwn">
-    <img class="tile" src="assets/frag-08.jpg" alt="空间结构手稿" data-page-node-id="juFfc7O1CW8nUHIVATVfYM">
-    <img class="tile" src="assets/frag-09.jpg" alt="舞台效果图" data-page-node-id="If3sE8rc9lfNkMhxrP1QpY">
-    <img class="tile" src="assets/frag-10.jpg" alt="导演阐述手稿" data-page-node-id="1Ter427fEWp6OiAAxUwcP1">
-    <img class="tile" src="assets/frag-11.jpg" alt="展览现场 · 悬挂文本装置">
-    <img class="tile" src="assets/frag-12.jpg" alt="剧场模型俯拍">
+    <img class="tile" src="assets/frag-01.jpg" alt="Stage storyboard — four-act sheet I" data-page-node-id="rGzZSRdvr2NNIZmJdRJ2U0">
+    <img class="tile" src="assets/frag-02.jpg" alt="Electronic installation render" data-page-node-id="LDl9gc5LebMErrH6bNIDEI">
+    <img class="tile" src="assets/frag-03.jpg" alt="Postcard and letterhead design" data-page-node-id="3zK3MznWg11Thwk6JoEnjq">
+    <img class="tile" src="assets/frag-04.jpg" alt="Stage storyboard — four-act sheet II" data-page-node-id="SvoGU3tkXqKI0nbLEockK0">
+    <img class="tile" src="assets/frag-05.jpg" alt="Theatre model and acrylic installation" data-page-node-id="ftOf2WFYcAofdXAXtxH0rA">
+    <img class="tile" src="assets/frag-06.jpg" alt="Stage storyboard — four-act sheet III" data-page-node-id="VpdLojHBZJ1964Bu3cEPyo">
+    <img class="tile" src="assets/frag-07.jpg" alt="Stage storyboard — four-act sheet IV" data-page-node-id="VzbhOS8lW0A38tM71O6iwn">
+    <img class="tile" src="assets/frag-08.jpg" alt="Spatial structure sketch" data-page-node-id="juFfc7O1CW8nUHIVATVfYM">
+    <img class="tile" src="assets/frag-09.jpg" alt="Stage rendering" data-page-node-id="If3sE8rc9lfNkMhxrP1QpY">
+    <img class="tile" src="assets/frag-10.jpg" alt="Director's statement, handwritten" data-page-node-id="1Ter427fEWp6OiAAxUwcP1">
+    <img class="tile" src="assets/frag-11.jpg" alt="Exhibition view — suspended text installation">
+    <img class="tile" src="assets/frag-12.jpg" alt="Theatre model, overhead view">
   </div>
 </section>
 
 <!-- ================= SKILLS ================= -->
 <section class="section" id="skills" data-page-node-id="DXZb0qdm011UR7EyREjatP">
   <div class="section-head" data-page-node-id="sqaVCfsfzr2HNU92sHh4wx">
-    <p class="section-kicker reveal" data-page-node-id="g348rKtIeUnEIwhLRE2iOe">技能与工具 · Craft &amp; Tools</p>
+    <p class="section-kicker reveal" data-page-node-id="g348rKtIeUnEIwhLRE2iOe"><svg class="kicker-mark" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.2 3.1 9.22 6 4.2 8.9Z"></path></svg>Craft &amp; Tools</p>
   </div>
   <div class="skills-wall reveal in" data-page-node-id="RZ1IBo0u0qSuAo2WyLAjKW">
     <div class="skill" data-page-node-id="GWWzfL7UW5ep3wBWvZU2AU">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3" data-page-node-id="F3heuRmW7NLU2mQGB8lgNx"><rect x="3" y="4" width="18" height="14" rx="2" data-page-node-id="smfHLkInu8AQYZbIsJehm7"></rect><path d="M3 9h18M8 21h8" data-page-node-id="hv8fpBHb4adPKSBpHI7nA2"></path></svg>
-      <p class="skill-name" data-page-node-id="bSIhFKfdYESEeBFT5PJR9v">UI / UX 设计<span class="en" data-page-node-id="kjf2vVXbZ7FX1koHUQgIAS">Interface &amp; Experience</span></p>
+      <p class="skill-name" data-page-node-id="bSIhFKfdYESEeBFT5PJR9v">Interface &amp; Experience</p>
     </div>
     <div class="skill" data-page-node-id="TW3x5aJvM8jWCBpMGKixRj">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3" data-page-node-id="A7yBO7MmYmxoP6RuWAy8km"><circle cx="12" cy="12" r="9" data-page-node-id="r1bwSXyC3A8xfGwlcmngFQ"></circle><path d="M12 3a14 14 0 010 18M3.5 9h17M3.5 15h17" data-page-node-id="aX3H77I15gzn901HWBbEoE"></path></svg>
-      <p class="skill-name" data-page-node-id="NPAv4FRr66FK6RnTQfsoES">平面设计<span class="en" data-page-node-id="8VtYWIvkO9MluTfyCiFFVo">Graphic Design</span></p>
+      <p class="skill-name" data-page-node-id="NPAv4FRr66FK6RnTQfsoES">Graphic Design</p>
     </div>
     <div class="skill" data-page-node-id="rlNIpZBkpTCoK6l870fWVW">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3" data-page-node-id="6I2mtqdNdtCGKIJX9miRkL"><path d="M12 2l2.6 6.2L21 9l-5 4.4L17.5 21 12 17.3 6.5 21 8 13.4 3 9l6.4-.8z" data-page-node-id="v7DAaaSQJ7AHeBumqI936a"></path></svg>
-      <p class="skill-name" data-page-node-id="iqhBcxX1VkOApD7wBP6a9z">舞台与展陈<span class="en" data-page-node-id="3IBn5Pq2jUerqNt52FawYN">Stage &amp; Exhibition</span></p>
+      <p class="skill-name" data-page-node-id="iqhBcxX1VkOApD7wBP6a9z">Stage &amp; Exhibition</p>
     </div>
     <div class="skill" data-page-node-id="13oChXfF2ynnXZ5WEopWD1">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3" data-page-node-id="VUv1OeuVkPauq40iIA47XX"><path d="M4 17l6-6 4 4 6-8" data-page-node-id="8oGNJz00MiZXnrmyqO2taA"></path><path d="M15 7h5v5" data-page-node-id="2DlZQ0E0MoBckGBfVXZS4V"></path></svg>
-      <p class="skill-name" data-page-node-id="MQuQ6XWyMCGHqsElFGuZg0">动态影像<span class="en" data-page-node-id="VRZ04eFdDCgNN90NzFMBQP">Motion &amp; Video</span></p>
+      <p class="skill-name" data-page-node-id="MQuQ6XWyMCGHqsElFGuZg0">Motion &amp; Video</p>
     </div>
     <div class="skill" data-page-node-id="oY2x1G1Tyr8Lqgq9gPPB1s">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3" data-page-node-id="ikKn8LUzS2QxgWqFIJUpg0"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" data-page-node-id="Rs5ymxkHiZqpY2lvJiNFc5"></path><circle cx="12" cy="12" r="3.2" data-page-node-id="A6XVgAHvzayew3jYmAwvbh"></circle></svg>
-      <p class="skill-name" data-page-node-id="9ewk0nLR434vDwm1VCiEwW">AI 创作工作流<span class="en" data-page-node-id="FohO4wyHhJAn26o3a6X0AH">AI Creative Workflow</span></p>
-    </div>
-    <div class="skill" data-page-node-id="r1JeM8wVIH2iisBuiPiI4H">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3" data-page-node-id="CkjjS18bviQCOQTkF6R1yH"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6" data-page-node-id="p9g919k9cMZQ5Y2esoimxz"></path></svg>
-      <p class="skill-name" data-page-node-id="1zocETQEbK4EVyQOEFtkPU">原型与前端<span class="en" data-page-node-id="frFhpwbPBFXLpUeVDPfxDQ">Prototyping / Front-end</span></p>
+      <p class="skill-name" data-page-node-id="9ewk0nLR434vDwm1VCiEwW">AI Creative Workflow</p>
     </div>
   </div>
 </section>
@@ -1183,36 +1360,54 @@ body.detail-mode #page-home { display: none; }
 
 <!-- ================= FOOTER ================= -->
 <footer class="footer" data-page-node-id="KEc88FKGT4NClJoCHEjkh2">
-  <span data-page-node-id="o0oTAw3Fo7GHHJs4SGqV85">© 2026 Itzel Tang · 唐畅蓥子</span>
+  <span data-page-node-id="o0oTAw3Fo7GHHJs4SGqV85">© 2026 Itzel Tang</span>
   <div class="footer-social">
-    <button class="social-item" type="button" aria-label="小红书二维码">
-      <img class="social-logo" src="assets/social-xiaohongshu.png" alt="小红书">
+    <button class="social-item" type="button" aria-label="Rednote QR code">
+      <img class="social-logo" src="assets/social-xiaohongshu.png" alt="Rednote">
       <span class="qr-pop">
-        <img src="assets/qr-xiaohongshu.png" alt="小红书账号二维码">
-        <span class="qr-label">小红书 · Rednote</span>
+        <img src="assets/qr-xiaohongshu.png" alt="Rednote account QR code">
+        <span class="qr-label">Rednote</span>
       </span>
     </button>
-    <button class="social-item" type="button" aria-label="微信二维码">
-      <img class="social-logo" src="assets/social-wechat.png" alt="微信">
+    <button class="social-item" type="button" aria-label="WeChat QR code">
+      <img class="social-logo" src="assets/social-wechat.png" alt="WeChat">
       <span class="qr-pop">
-        <img src="assets/qr-wechat.png" alt="微信账号二维码">
-        <span class="qr-label">微信 · WeChat</span>
+        <img src="assets/qr-wechat.png" alt="WeChat account QR code">
+        <span class="qr-label">WeChat</span>
       </span>
     </button>
   </div>
 </footer>
 </div><!-- /#page-home -->
 
+<!-- ================= FRAGMENTS LIGHTBOX — 碎片大图查看层 ================= -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Fragment image viewer" aria-hidden="true">
+  <div class="lb-stage" id="lbStage">
+    <img class="lb-img" id="lbImg" src="" alt="">
+  </div>
+  <button class="lb-nav prev" id="lbPrev" type="button" aria-label="Previous image">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <button class="lb-nav next" id="lbNext" type="button" aria-label="Next image">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+  <div class="lb-count"><b id="lbNum">01</b> / <span id="lbTotal">12</span></div>
+  <div class="lb-zoom">
+    <button id="lbZoomIn"  type="button" aria-label="Zoom in">+</button>
+    <button id="lbZoomOut" type="button" aria-label="Zoom out">−</button>
+  </div>
+</div>
+
 <!-- ================= WORK DETAIL — 二级页面 ================= -->
 <section class="detail-page" id="page-work" aria-hidden="true">
   <div class="detail-top">
     <a class="detail-back" href="#work">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 12H5m0 0l6-6m-6 6l6 6"/></svg>
-      Back · 返回精选作品
+      Back to Selected Work
     </a>
-    <h1 class="detail-title" id="detailTitle">孤独深触</h1>
-    <p class="detail-sub" id="detailSub">Solitude's Embrace — 产品与体验设计 · 医疗关怀</p>
-    <p class="detail-desc" id="detailDesc">当拥抱变得稀薄，设计成为触碰的另一种方式。</p>
+    <h1 class="detail-title" id="detailTitle">Solitude's Embrace</h1>
+    <p class="detail-sub" id="detailSub">Product &amp; Experience Design · Care</p>
+    <p class="detail-desc" id="detailDesc">When touch grows rare, design becomes the hand that remains.</p>
   </div>
 
   <div class="detail-grid">
@@ -1224,10 +1419,10 @@ body.detail-mode #page-home { display: none; }
       <div class="viewer">
         <div id="viewerSlides" style="display:contents"></div>
 
-        <button class="viewer-nav prev" id="viewerPrev" aria-label="上一张">
+        <button class="viewer-nav prev" id="viewerPrev" aria-label="Previous">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg>
         </button>
-        <button class="viewer-nav next" id="viewerNext" aria-label="下一张">
+        <button class="viewer-nav next" id="viewerNext" aria-label="Next">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg>
         </button>
 
@@ -1252,17 +1447,111 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
+/* ===== About 统计卡：单击展开明细 =====
+   悬停只给浅蓝底色（纯 CSS），明细必须单击才加 .is-open 露出。
+   还原途径有四条，确保不会卡在展开态出不来：
+   ① 再次单击同一张卡 ② 单击卡片外任意处 ③ 按 Esc ④ 进入作品详情页。
+   面板是 pointer-events:none，所以展开态下点击能穿透到真正的卡片上，
+   在展开层里也能直接切换到另一张卡。 */
+const statCards = Array.from(document.querySelectorAll('.stat'));
+function closeStats(except) {
+  statCards.forEach(s => { if (s !== except) s.classList.remove('is-open'); });
+}
+statCards.forEach(card => {
+  card.addEventListener('click', (e) => {
+    e.stopPropagation();                 /* 别冒泡到 document 的"点空白关闭" */
+    const open = card.classList.toggle('is-open');
+    if (open) closeStats(card);          /* 同时只展开一张 */
+  });
+});
+document.addEventListener('click', () => closeStats(null));
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeStats(null); });
+
+/* ===== 碎片区 Lightbox：点击看大图（不设二级页面） =====
+   黑幕压暗整页 → 原色大图居中；左右箭头循环翻页（UI 同二级页面查看器）；
+   滚轮 / +−按钮缩放（0.5~4x），放大后可拖拽平移；Esc、点黑幕、点 ×（黑幕空白处）关闭。 */
+const lb        = document.getElementById('lightbox');
+const lbStage   = document.getElementById('lbStage');
+const lbImg     = document.getElementById('lbImg');
+const lbNum     = document.getElementById('lbNum');
+const lbTotal   = document.getElementById('lbTotal');
+const lbTiles   = Array.from(document.querySelectorAll('.masonry .tile'));
+let lbIndex = 0, lbScale = 1, lbX = 0, lbY = 0;
+lbTotal.textContent = String(lbTiles.length).padStart(2, '0');
+
+function lbApply() {
+  lbImg.style.transform = `translate(${lbX}px, ${lbY}px) scale(${lbScale})`;
+}
+function lbShow(i) {
+  lbIndex = (i + lbTiles.length) % lbTiles.length;      /* 循环翻页 */
+  const t = lbTiles[lbIndex];
+  lbImg.src = t.src;
+  lbImg.alt = t.alt;
+  lbScale = 1; lbX = 0; lbY = 0; lbApply();             /* 每次换图复位缩放 */
+  lbNum.textContent = String(lbIndex + 1).padStart(2, '0');
+  lb.classList.add('open');
+  lb.setAttribute('aria-hidden', 'false');
+}
+function lbClose() {
+  lb.classList.remove('open');
+  lb.setAttribute('aria-hidden', 'true');
+}
+lbTiles.forEach((t, i) => t.addEventListener('click', () => lbShow(i)));
+document.getElementById('lbPrev').addEventListener('click', () => lbShow(lbIndex - 1));
+document.getElementById('lbNext').addEventListener('click', () => lbShow(lbIndex + 1));
+
+/* 缩放：以视口中心为锚点，0.5~4x */
+function lbZoomTo(s) {
+  lbScale = Math.min(4, Math.max(.5, s));
+  if (lbScale === 1) { lbX = 0; lbY = 0; }              /* 回到 1x 时复位平移 */
+  lbApply();
+}
+document.getElementById('lbZoomIn').addEventListener('click',  () => lbZoomTo(lbScale * 1.25));
+document.getElementById('lbZoomOut').addEventListener('click', () => lbZoomTo(lbScale / 1.25));
+lb.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  lbZoomTo(lbScale * (e.deltaY < 0 ? 1.12 : 0.9));
+}, { passive: false });
+
+/* 放大后拖拽平移（Pointer Events，兼容触屏） */
+let lbDrag = null;
+lbStage.addEventListener('pointerdown', (e) => {
+  if (lbScale <= 1) return;                              /* 1x 下不需要平移 */
+  lbDrag = { sx: e.clientX, sy: e.clientY, ox: lbX, oy: lbY };
+  lbStage.classList.add('is-panning');
+  lbStage.setPointerCapture(e.pointerId);
+});
+lbStage.addEventListener('pointermove', (e) => {
+  if (!lbDrag) return;
+  lbX = lbDrag.ox + (e.clientX - lbDrag.sx);
+  lbY = lbDrag.oy + (e.clientY - lbDrag.sy);
+  lbApply();
+});
+['pointerup', 'pointercancel'].forEach(ev =>
+  lbStage.addEventListener(ev, () => { lbDrag = null; lbStage.classList.remove('is-panning'); }));
+
+/* 关闭：Esc / 点击黑幕空白处（箭头、页码、缩放按钮都会 stopPropagation 或不在 stage 内） */
+lb.addEventListener('click', (e) => {
+  if (e.target === lb || e.target === lbStage) lbClose();
+});
+document.addEventListener('keydown', (e) => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape')      lbClose();
+  if (e.key === 'ArrowLeft')   lbShow(lbIndex - 1);
+  if (e.key === 'ArrowRight')  lbShow(lbIndex + 1);
+});
+
 /* ===== 作品二级页面：hash 路由 + 大图翻页 ===== */
 const PROJECTS = {
-  solitude: { zh: '孤独深触', en: "Solitude's Embrace", type: '产品与体验设计 · 医疗关怀', desc: '当拥抱变得稀薄，设计成为触碰的另一种方式。',
+  solitude: { title: "Solitude's Embrace", type: 'Product & Experience Design · Care', desc: 'When touch grows rare, design becomes the hand that remains.',
     imgs: ['assets/solitude-1.png','assets/solitude-2.png','assets/solitude-3.png','assets/solitude-4.png','assets/solitude-5.png','assets/solitude-6.png','assets/solitude-7.png'] },
-  silence:  { zh: '沉默驯化', en: 'Silence Taming',       type: '装置艺术 · 影像装置',       desc: '恐惧不是终点，是被听见的开始。',
+  silence:  { title: 'Silence Taming',       type: 'Installation · Moving Image',       desc: "Fear isn't the end. It's where being heard begins.",
     video: { src: 'assets/silence-video.mp4', poster: 'assets/silence-1.png' },
     imgs: ['assets/silence-1.png','assets/silence-2.png','assets/silence-3.png','assets/silence-4.png','assets/silence-5.png'] },
-  idol:     { zh: '偶像制造', en: 'Idol Forge',           type: 'Web3 产品设计 · 虚拟偶像平台', desc: '在虚拟与真实之间，锻造一份共同拥有的星光。',
+  idol:     { title: 'Idol Forge',           type: 'Web3 Product · Virtual Idol Platform', desc: 'Between real and virtual, forging a light everyone can hold.',
     video: { src: 'assets/idol-video.mp4', poster: 'assets/idol-1.png' },
     imgs: ['assets/idol-1.png','assets/idol-2.png','assets/idol-3.png','assets/idol-4.png','assets/idol-5.png','assets/idol-6.png'] },
-  pass:     { zh: '过',       en: 'PASS',                 type: '游戏设计 · 叙事系统',       desc: '资源计算到最后一位，人成了被四舍五入的数字。',
+  pass:     { title: 'PASS',                 type: 'Game Design · Narrative System',     desc: 'When resources are calculated to the last digit, people become the rounding error.',
     video: { src: 'assets/pass-video.mp4', poster: 'assets/pass-1.png' },
     imgs: ['assets/pass-1.png','assets/pass-2.png','assets/pass-3.png','assets/pass-4.png','assets/pass-5.png'] }
 };
@@ -1291,13 +1580,13 @@ function buildViewer(key) {
   thumbEls = items.map((it, i) => {
     const b = document.createElement('button');
     b.className = 'thumb';
-    b.setAttribute('aria-label', it.type === 'video' ? '播放视频' : '预览 ' + (i + 1));
+    b.setAttribute('aria-label', it.type === 'video' ? 'Play video' : 'Preview ' + (i + 1));
     if (it.type === 'video') {
       b.classList.add('thumb-video');
       b.style.backgroundImage = 'url("' + it.poster + '")';
     } else {
       const img = document.createElement('img');
-      img.src = it.src; img.alt = p.zh + ' 缩略图 ' + (i + 1);
+      img.src = it.src; img.alt = p.title + ' — thumbnail ' + (i + 1);
       b.appendChild(img);
     }
     b.addEventListener('click', () => { currentSlide = i; updateViewer(); });
@@ -1335,7 +1624,7 @@ function buildViewer(key) {
     } else {
       imgNo += 1;
       const img = document.createElement('img');
-      img.src = it.src; img.alt = p.zh + ' ' + p.en + ' — ' + imgNo;
+      img.src = it.src; img.alt = p.title + ' — ' + imgNo;
       d.appendChild(img);
       tag.textContent = String(imgNo).padStart(2, '0') + ' · 1920 × 1080';
     }
@@ -1369,10 +1658,11 @@ function openWork(key) {
   if (!p) return;
   currentWork = key; currentSlide = 0;
   buildViewer(key);
-  document.getElementById('detailTitle').textContent = p.zh;
-  document.getElementById('detailSub').textContent = p.en + ' — ' + p.type;
+  document.getElementById('detailTitle').textContent = p.title;
+  document.getElementById('detailSub').textContent = p.type;
   document.getElementById('detailDesc').textContent = p.desc;
-  document.title = p.en + ' — Itzel Tang';
+  document.title = p.title + ' — Itzel Tang';
+  closeStats(null);                      /* 进详情页前收起统计卡，回到首页时是干净状态 */
   document.body.classList.add('detail-mode');
   pageWork.classList.add('active');
   updateViewer();
